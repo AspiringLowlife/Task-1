@@ -1,0 +1,96 @@
+# Task-1
+namespace Pr01
+{
+    class Program
+    {
+        static int getInt()    // This method prompts the user to enter a positive integer
+        {
+            int x;
+            do
+            {
+                Console.Write("Enter a positive integer ");
+                x = int.Parse(Console.ReadLine());
+            } 
+            while (x <= 0);
+
+            return x;
+        }      
+        static void Main(string[] args)
+        {
+            GCDT1 test1 = new GCDT1();
+            GCDT2 test2 = new GCDT2();
+            int A,
+                B;
+            System.Diagnostics.Stopwatch Timer = new System.Diagnostics.Stopwatch();
+            for (int i = 0; i < 5; i++)
+            {                
+                
+                int GCD;
+                A = getInt();    // get the first positive integer
+                B = getInt();    // get the second positive integer                
+                
+                Timer.Start();
+                GCD =test1.FindGCD(A, B);      // find GCD using Task 1 method
+                Timer.Stop();
+                Console.WriteLine("GCD T1 for {0} and {1} is {2} in time of {3}", A, B,GCD,Timer.Elapsed);
+                Timer.Reset();                               
+                Timer.Start();
+                GCD = test2.FindGCD(A, B);       // find GCD using Task 2 method
+                Timer.Stop();
+                Console.WriteLine("GCD T2 for {0} and {1} is {2} in time of {3}", A, B, GCD,Timer.Elapsed);
+                Timer.Reset();
+                Console.WriteLine();                
+            }
+            Console.WriteLine();
+            Console.WriteLine("Processing terminated ...... press enter to continue");
+            Console.ReadLine();
+        }
+    }
+}
+
+ public class GCDT1
+    { Stopwatch Timer = new Stopwatch();           
+        //Finds the GCD of two integer arguments
+        public int FindGCD(int A, int B)     
+        {
+            
+            Timer.Start();     
+            List<int> DivisorList = FindDivisors(A);
+            for (int i = DivisorList.Count - 1; i >= 0; i--)
+            {
+                if (B % DivisorList[i] == 0)
+                    return DivisorList[i];               
+            }
+            return 0;
+            Timer.Stop();
+            
+        }
+        //Finds the Divisors of the integer A and fills an int List with each Divisor 
+        public List<int> FindDivisors(int A)
+        {
+            List<int> List = new List<int>();
+            for (int i = 1; i <= A; i++)
+            {
+                if (A % i == 0)
+                    List.Add(i);           //Adds i as a divisor of A to the List ensuring the list is in ascending order
+            }
+            return List;
+        }   
+    }
+
+{
+    class GCDT2
+    {
+        //Finds the GCD by dividing one int by the other then dividing that same int but the remainder untill remainder=0
+        public int FindGCD(int A, int B)
+        {
+            while (B != 0)
+            { 
+             int remainder = A % B;
+                A = B;
+                B = remainder;
+            }
+            return A;
+        }
+    }
+}
