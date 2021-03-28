@@ -1,1 +1,47 @@
+{
+    class Program
+    {
+        static int getInt()    // This method prompts the user to enter a positive integer
+        {
+            int x;
+            do
+            {
+                Console.Write("Enter a positive integer ");
+                x = int.Parse(Console.ReadLine());
+            } 
+            while (x <= 0);
 
+            return x;
+        }      
+        static void Main(string[] args)
+        {
+            GCDT1 test1 = new GCDT1();
+            GCDT2 test2 = new GCDT2();
+            int A,
+                B;
+            System.Diagnostics.Stopwatch Timer = new System.Diagnostics.Stopwatch();
+            for (int i = 0; i < 5; i++)
+            {                
+                
+                int GCD;
+                A = getInt();    // get the first positive integer
+                B = getInt();    // get the second positive integer                
+                
+                Timer.Start();
+                GCD =test1.FindGCD(A, B);      // find GCD using Task 1 method
+                Timer.Stop();
+                Console.WriteLine("GCD T1 for {0} and {1} is {2} in time of {3}", A, B,GCD,Timer.Elapsed);
+                Timer.Reset();                               
+                Timer.Start();
+                GCD = test2.FindGCD(A, B);       // find GCD using Task 2 method
+                Timer.Stop();
+                Console.WriteLine("GCD T2 for {0} and {1} is {2} in time of {3}", A, B, GCD,Timer.Elapsed);
+                Timer.Reset();
+                Console.WriteLine();                
+            }
+            Console.WriteLine();
+            Console.WriteLine("Processing terminated ...... press enter to continue");
+            Console.ReadLine();
+        }
+    }
+}
