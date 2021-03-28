@@ -1,0 +1,15 @@
+class GCDT2
+    {
+        //Finds the GCD by dividing one int by the other then dividing that same int but the remainder untill remainder=0
+        public int FindGCD(int A, int B)
+        {
+            while (B != 0)
+            { 
+             int remainder = A % B;
+                A = B;
+                B = remainder;
+            }
+            return A;
+        }
+    }
+}
